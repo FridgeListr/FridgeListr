@@ -15,7 +15,7 @@ app.use(express.static(path.resolve(__dirname, "../bundle")))
 app.get("*",(req,res)=>{
     res.sendFile(path.resolve(__dirname, '../bundle/bundle.html'))
 })
-
+ 
 
 app.listen(PORT, () => {    
     console.log(`Server listening on port: ${PORT}...`);

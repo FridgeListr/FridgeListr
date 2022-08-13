@@ -1,8 +1,9 @@
 import React from 'react';
-import App from './components/App.jsx';
-import Login from './components/login.jsx';
+import Home from './components/Home.jsx';
+import Login from './components/Login.jsx';
 import Signup from './components/Signup.jsx';
 import ReactDOM from "react-dom/client";
+// import Navbar from './components/Navbar.jsx'
 import {
     BrowserRouter,
     Routes,
@@ -22,7 +23,7 @@ root.render(
         <Routes>
             <Route path='/' element={<Login />} />
             <Route exact path='/signup' element={<Signup />}/>            
-            <Route exact path='/home' element={<App />} />
+            <Route exact path='/home' element={<Home />} />
         </Routes>
     </BrowserRouter>
     // ,
