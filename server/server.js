@@ -11,8 +11,9 @@ console.log(path.join(__dirname, "../client"));
 app.use(express.static(path.join(__dirname, "../")));
 app.use(express.static(path.resolve(__dirname, "../bundle")))
 
-app.use('/', (req, res) => {
-    res.redirect('/');
+// do we need to put this at the very bottom?
+app.get("*",(req,res)=>{
+    res.sendFile(path.resolve(__dirname, '../bundle/bundle.html'))
 })
 
 
