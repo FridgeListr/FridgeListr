@@ -11,6 +11,10 @@ console.log(path.join(__dirname, "../client"));
 app.use(express.static(path.join(__dirname, "../")));
 app.use(express.static(path.resolve(__dirname, "../bundle")))
 
+app.use('/', (req, res) => {
+    res.redirect('/');
+})
+
 
 app.listen(PORT, () => {    
     console.log(`Server listening on port: ${PORT}...`);
