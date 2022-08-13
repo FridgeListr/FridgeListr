@@ -6,12 +6,13 @@ function Signup() {
 
   return (
     <div>
-      <h1>SIGNUP</h1>
-      <p>You clicked {count} times</p>
-      <button onClick={() => setCount(count + 1)}>
-        Click me Signup
-      </button>
-    </div>
+    <form id='signup-form'>
+      <input required id="signup-username" placeholder="Username" type="text" />
+      <input required id="signup-password" placeholder="Password" type="password" />
+      <input type="submit" value="Signup" />
+    </form>
+    <a href='/signup' >Sign Up</a>
+  </div>
   );
 }
 

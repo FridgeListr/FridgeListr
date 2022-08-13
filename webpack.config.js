@@ -67,26 +67,6 @@ module.exports = {
     ],
     hot: true, //nice
     proxy: {
-      // '/account/**': {
-      //   target: 'http://localhost:3000/',
-      //   secure: false,
-      // },
-      // 'inventory/**': {
-      //   target: 'http://localhost:3000/',
-      //   secure: false,
-      // },
-      // '/stylesheets/**': {
-      //   target: 'http://localhost:3000/',
-      //   secure: false,
-      // },
-      // '/home/**': {
-      //   target: 'http://localhost:3000/',
-      //   secure: false,
-      // },
-      // '/signup/**': {
-      //   target: 'http://localhost:3000/',
-      //   secure: false,
-      // },
       '/**': {
         target: 'http://localhost:3000/',
         secure: false,
