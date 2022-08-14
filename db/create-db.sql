@@ -2,10 +2,14 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 11.3 (Ubuntu 11.3-1.pgdg18.04+1)
--- Dumped by pg_dump version 11.5
+-- INSTRUCTIONS TO RUN:
+-- IN YOUR TERMINAL RUN: 
+-- psql -d <url from elephantSQL> -f create-db.sql
+-- * pay attention to routing of file. If you dropped this file within a folder and not the root folder of your project, you need to add
+-- proper routing for this to work!
 
--- Started on 2019-09-11 16:56:10 PDT
+-- Alternatively, you can go to your elephantSQL empty database, copy + paste the code below and run!
+
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -18,7 +22,7 @@ SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
-CREATE TABLE public.fridges (
+CREATE TABLE public.fridge (
   _id SERIAL,
   fridge_unique_name VARCHAR(100) NOT NULL UNIQUE,
   PRIMARY KEY (_id, fridge_unique_name)
@@ -26,32 +30,34 @@ CREATE TABLE public.fridges (
   OIDS=FALSE
 );
 
-CREATE TABLE public.user_accounts (
+CREATE TABLE public."user-account" (
   _id SERIAL,
   username VARCHAR(100) NOT NULL,
-  password VARCHAR(100) NOT NULL,
+  password VARCHAR(255) NOT NULL,
   email VARCHAR(100) NOT NULL,
   default_fridge_name VARCHAR(100),
-  PRIMARY KEY (_id),
-  FOREIGN KEY (default_fridge_name) REFERENCES fridges (fridge_unique_name) ON UPDATE CASCADE
+  PRIMARY KEY (_id)
 )WITH (
   OIDS=FALSE
 );
 
+ALTER TABLE public."user-account" ADD CONSTRAINT "user_fk0" FOREIGN KEY (default_fridge_name) REFERENCES public.fridge (fridge_unique_name) ON UPDATE CASCADE;
 
-CREATE TABLE public.fridges_join (
+
+CREATE TABLE public."fridge-join" (
   _id SERIAL,
   fridge_unique_name VARCHAR(100) NOT NULL,
   user_id INT NOT NULL,
   nickname VARCHAR(100),
-  PRIMARY KEY (_id),
-  FOREIGN KEY (user_id) REFERENCES user_accounts (_id) ON UPDATE CASCADE,
-  FOREIGN KEY (fridge_unique_name) REFERENCES fridges (fridge_unique_name) ON UPDATE CASCADE ON DELETE CASCADE
-)WITH (
+  PRIMARY KEY (_id)
+  )WITH (
   OIDS=FALSE
 );
 
-CREATE TABLE public.food_items(
+ALTER TABLE public."fridge-join" ADD CONSTRAINT "fridge_fk0" FOREIGN KEY (fridge_unique_name) REFERENCES public.fridge (fridge_unique_name) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE public."fridge-join" ADD CONSTRAINT "fridge_fk1" FOREIGN KEY (user_id) REFERENCES public."user-account" (_id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+CREATE TABLE public."food-item"(
   _id SERIAL,
   food_name VARCHAR(100) NOT NULL,
   quantity INT DEFAULT 1,
@@ -59,36 +65,35 @@ CREATE TABLE public.food_items(
   date_entered DATE NOT NULL DEFAULT CURRENT_DATE,
   expiration_date DATE,
   fridge_unique_name VARCHAR(100) NOT NULL,
-  PRIMARY KEY (_id),
-  FOREIGN KEY (fridge_unique_name) REFERENCES fridges (fridge_unique_name) ON UPDATE CASCADE ON DELETE CASCADE
+  PRIMARY KEY (_id)
 )WITH (
   OIDS=FALSE
 );
 
-ALTER TABLE public.food_items ALTER COLUMN expiration_date SET DEFAULT current_date + '7 days'::interval;
-
+ALTER TABLE public."food-item" ADD CONSTRAINT "food_fk0" FOREIGN KEY (fridge_unique_name) REFERENCES public.fridge (fridge_unique_name) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE public."food-item" ALTER COLUMN expiration_date SET DEFAULT current_date + '7 days'::interval;
 
 
 -- need to make a sessions table
-CREATE TABLE public.sessions(
+CREATE TABLE public."sessions"(
   _id SERIAL,
   session_number VARCHAR(255) NOT NULL,
   user_id INT NOT NULL,
   time_start DATE NOT NULL DEFAULT CURRENT_DATE,
   time_expire DATE NOT NULL,
-  PRIMARY KEY (_id),
-  FOREIGN KEY (user_id) REFERENCES user_accounts (_id) ON UPDATE CASCADE ON DELETE CASCADE
+  PRIMARY KEY (_id)
 )WITH (
   OIDS=FALSE
 );
 
-ALTER TABLE public.sessions ALTER COLUMN time_expire SET DEFAULT current_date + '1 day'::interval;
+ALTER TABLE public."sessions" ADD CONSTRAINT "session_fk0" FOREIGN KEY (user_id) REFERENCES public."user-account" (_id) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE public."sessions" ALTER COLUMN time_expire SET DEFAULT current_date + '1 day'::interval;
 
 
 -- TOC entry 3 (class 0 OID  )
 -- Dependencies: ;
 -- Data for Name: fridges; Type: TABLE DATA; Schema:  Owner: -
-INSERT INTO public.fridges (fridge_unique_name) VALUES 
+INSERT INTO public.fridge (fridge_unique_name) VALUES 
   ('parent&apos;s fridge'),
   ('olaf'),
   ('My fridge');
@@ -96,7 +101,7 @@ INSERT INTO public.fridges (fridge_unique_name) VALUES
 -- TOC entry 6 (class 0 OID  )
 -- Dependencies: ;
 -- Data for Name: species; Type: TABLE DATA; Schema:  Owner: -
-INSERT INTO public.user_accounts (_id, username, password, email, default_fridge_name) VALUES 
+INSERT INTO public."user-account" (_id, username, password, email, default_fridge_name) VALUES 
   (1, 'codeDenma', 'henryisawesome', 'codedenma@gmail.com', 'parent&apos;s fridge'),
   (2, 'frozenStove', 'lennyisawesome', 'frozenstove@gmail.com', 'parent&apos;s fridge'),
   (3, 'frozengurl', 'elsa', 'frozengirl7@gmail.com', 'olaf'),
@@ -107,7 +112,7 @@ INSERT INTO public.user_accounts (_id, username, password, email, default_fridge
 -- TOC entry 7 (class 0 OID  )
 -- Dependencies: ;
 -- Data for Name: species; Type: TABLE DATA; Schema:  Owner: -
-INSERT INTO public.fridges_join (fridge_unique_name, user_id, nickname) VALUES 
+INSERT INTO public."fridge-join" (fridge_unique_name, user_id, nickname) VALUES 
   ('parent&apos;s fridge', 1, 'parent&apos;s fridge'),
   ('parent&apos;s fridge', 2, 'Henry&apos;s parent&apos;s fridge'),
   ('olaf', 3, 'olaf'),
@@ -119,7 +124,7 @@ INSERT INTO public.fridges_join (fridge_unique_name, user_id, nickname) VALUES
 -- TOC entry 7 (class 0 OID  )
 -- Dependencies: ;
 -- Data for Name: species; Type: TABLE DATA; Schema:  Owner: -
-INSERT INTO public.food_items (food_name, quantity, unit, fridge_unique_name) VALUES 
+INSERT INTO public."food-item" (food_name, quantity, unit, fridge_unique_name) VALUES 
   ('apple', 3, NULL,'parent&apos;s fridge'),
   ('burger', 1, NULL,'parent&apos;s fridge'),
   ('smoothie', 2, 'cups', 'parent&apos;s fridge'),
@@ -140,7 +145,18 @@ INSERT INTO public.food_items (food_name, quantity, unit, fridge_unique_name) VA
 -- TOC entry 7 (class 0 OID  )
 -- Dependencies: ;
 -- Data for Name: species; Type: TABLE DATA; Schema:  Owner: -
-INSERT INTO public.sessions (session_number, user_id) VALUES 
+INSERT INTO public."sessions" (session_number, user_id) VALUES 
   ('idunnowhatacookieshouldlooklikesoherehaveacookie', 1),
   ('whowantsacookiecookiemonsterswantsacookie', 2),
   ('onemoreforgoodluckandbecausegoodthingscomeinthrees', 3);
+
+
+-- ! DROP ALL TABLES Command to reset and reinitialize.
+-- Uncomment the lines below and paste into your SQL query runner of choice.
+-- Comment them back when you are ready to populate the sample database. 
+
+-- DROP TABLE "sessions";
+-- DROP TABLE "food-item";
+-- DROP TABLE "fridge-join";
+-- DROP TABLE "user-account";
+-- DROP TABLE "fridge";
