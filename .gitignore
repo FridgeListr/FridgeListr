@@ -106,3 +106,4 @@ dist
 package-lock.json
 bundle/
 db/secret.js
+# bundle/
