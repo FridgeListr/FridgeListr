@@ -41,7 +41,7 @@ CREATE TABLE public."user-account" (
   OIDS=FALSE
 );
 
-ALTER TABLE public."user-account" ADD CONSTRAINT "user_fk0" FOREIGN KEY (default_fridge_name) REFERENCES public.fridge (fridge_unique_name) ON UPDATE CASCADE;
+ALTER TABLE public."user-account" ADD CONSTRAINT "user_fk0" FOREIGN KEY (default_fridge_name) REFERENCES public.fridge (fridge_unique_name) ON UPDATE CASCADE ON DELETE SET NULL;
 
 
 CREATE TABLE public."fridge-join" (
@@ -54,8 +54,8 @@ CREATE TABLE public."fridge-join" (
   OIDS=FALSE
 );
 
-ALTER TABLE public."fridge-join" ADD CONSTRAINT "fridge_fk0" FOREIGN KEY (fridge_unique_name) REFERENCES public.fridge (fridge_unique_name) ON UPDATE CASCADE ON DELETE CASCADE;
-ALTER TABLE public."fridge-join" ADD CONSTRAINT "fridge_fk1" FOREIGN KEY (user_id) REFERENCES public."user-account" (_id) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE public."fridge-join" ADD CONSTRAINT "fridge_fk0" FOREIGN KEY (fridge_unique_name) REFERENCES public.fridge (fridge_unique_name) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE public."fridge-join" ADD CONSTRAINT "fridge_fk1" FOREIGN KEY (user_id) REFERENCES public."user-account" (_id) ON DELETE CASCADE ON UPDATE CASCADE;
 
 CREATE TABLE public."food-item"(
   _id SERIAL,
@@ -70,7 +70,7 @@ CREATE TABLE public."food-item"(
   OIDS=FALSE
 );
 
-ALTER TABLE public."food-item" ADD CONSTRAINT "food_fk0" FOREIGN KEY (fridge_unique_name) REFERENCES public.fridge (fridge_unique_name) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE public."food-item" ADD CONSTRAINT "food_fk0" FOREIGN KEY (fridge_unique_name) REFERENCES public.fridge (fridge_unique_name) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE public."food-item" ALTER COLUMN expiration_date SET DEFAULT current_date + '7 days'::interval;
 
 
@@ -86,7 +86,7 @@ CREATE TABLE public."sessions"(
   OIDS=FALSE
 );
 
-ALTER TABLE public."sessions" ADD CONSTRAINT "session_fk0" FOREIGN KEY (user_id) REFERENCES public."user-account" (_id) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE public."sessions" ADD CONSTRAINT "session_fk0" FOREIGN KEY (user_id) REFERENCES public."user-account" (_id) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE public."sessions" ALTER COLUMN time_expire SET DEFAULT current_date + '1 day'::interval;
 
 
