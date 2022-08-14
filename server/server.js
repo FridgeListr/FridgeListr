@@ -15,6 +15,9 @@ app.use(express.static(path.resolve(__dirname, "../bundle")))
 app.get("*",(req,res)=>{
     res.sendFile(path.resolve(__dirname, '../bundle/bundle.html'))
 })
+// app.get("*",(req,res)=>{
+//     res.sendFile(path.resolve(__dirname, '../bundle/bundle.js'))
+// })
  
 
 app.listen(PORT, () => {    

@@ -47,7 +47,7 @@ function Home() {
       </div>
       <div id='content'>
         <MainInventory defaultFridge={defaultFridge} />
-        <Activity />
+        {/* <Activity /> */}
       </div>
     </>
   );

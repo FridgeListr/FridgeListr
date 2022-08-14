@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 function Login() {
   // Declare a new state variable, which we'll call "count"
-  const [count, setCount] = useState(0);
+  // const [count, setCount] = useState(0);
 
   function loginPost() {
     // console.log('loginpost')
@@ -22,7 +22,7 @@ function Login() {
       .then((data) => data.json())
       .then((data) => {
         console.log(test)
-        // expect a cookie back
+        // expect a cookie back and a redirect
       })
       .catch((error) => console.log(error));
   }
@@ -31,7 +31,7 @@ function Login() {
   return (
     <div id='signup-box'>
       <h1>test heading</h1>
-      <form id='login-form' onSubmit={() => {
+      <form id='login-form' onSubmit={(event) => {
         loginPost();
         event.preventDefault();
       }}>

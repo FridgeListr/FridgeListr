@@ -13,14 +13,12 @@ const MainInventory = (props) => {
             method: 'GET'
         }
 
-        fetch(`/inventory/?fridge_id${props.defaultFridge}`, getOptions)
+        fetch(`/inventory/?fridge_id=${props.defaultFridge}`, getOptions)
             .then((data) => data.json())
             .then((data) => {
                 setFoodArray(data)
             })
     }
-
-
 
     // this will update the render component when the food array changes
     useEffect(() => {

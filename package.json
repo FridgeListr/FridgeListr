@@ -7,6 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "NODE_ENV=production nodemon ./server/server.js",
     "build": "NODE_ENV=production webpack",
+    "build2": "NODE_ENV=development webpack",
     "dev": "concurrently \"cross-env NODE_ENV=development nodemon ./server/server.js\" \"cross-env NODE_ENV=development webpack serve --open\""
   },  
   "repository": {
