@@ -1,12 +1,14 @@
 const { Pool } = require('pg');
+const PG_URI = require('./secret');
 
-const PG_URI = 'postgres://uvdtzgfr:g5f7EI12gfvnioLRqLkTqdho_QO3_sB2@heffalump.db.elephantsql.com/uvdtzgfr'
+// Keep this a secret and not so publicly accessible
+// const PG_URI = URI;
 
 // postgres://uvdtzgfr:g5f7EI12gfvnioLRqLkTqdho_QO3_sB2@heffalump.db.elephantsql.com/uvdtzgfr
 
-const pool = new Pool(
-  connectionString:
-);
+const pool = new Pool({
+  connectionString: PG_URI,
+});
 
 // Entity-Relationships diagram can be found below: 
 // https://github.com/Yeti-Crab-52/scratch-project/blob/dev/ER-table.png
