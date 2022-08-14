@@ -11,6 +11,11 @@ console.log(path.join(__dirname, "../client"));
 app.use(express.static(path.join(__dirname, "../")));
 app.use(express.static(path.resolve(__dirname, "../bundle")))
 
+// do we need to put this at the very bottom?
+app.get("*",(req,res)=>{
+    res.sendFile(path.resolve(__dirname, '../bundle/bundle.html'))
+})
+
 
 app.listen(PORT, () => {    
     console.log(`Server listening on port: ${PORT}...`);
