@@ -104,4 +104,6 @@ dist
 .tern-port
 
 package-lock.json
+bundle/
+db/secret.js
 # bundle/

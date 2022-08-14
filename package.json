@@ -9,7 +9,7 @@
     "build": "NODE_ENV=production webpack",
     "build2": "NODE_ENV=development webpack",
     "dev": "concurrently \"cross-env NODE_ENV=development nodemon ./server/server.js\" \"cross-env NODE_ENV=development webpack serve --open\""
-  },  
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Yeti-Crab-52/scratch-project.git"
@@ -24,6 +24,7 @@
   "dependencies": {
     "express": "^4.18.1",
     "nodemon": "^2.0.19",
+    "pg": "^8.7.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router": "^6.3.0",
@@ -49,6 +50,7 @@
     "react-router-dom": "^6.3.0",
     "style-loader": "^3.3.1",
     "sass-loader": "^13.0.2",
+    "style-loader": "^3.3.1",
     "webpack": "^5.74.0",
     "webpack-cli": "^4.10.0",
     "webpack-dev-server": "^4.10.0"
