@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 const path = require("path");
 
+const userRouter = require('./routes/user');
+const invRouter = require('./routes/inventory');
 
 const PORT = process.env.PORT || 3000;
 
@@ -9,7 +11,27 @@ const PORT = process.env.PORT || 3000;
 // looks for static files, specifically index.html, style.css, index.js
 console.log(path.join(__dirname, "../client"));
 app.use(express.static(path.join(__dirname, "../")));
-app.use(express.static(path.resolve(__dirname, "../bundle")))
+app.use(express.static(path.resolve(__dirname, "../bundle")));
+
+// handle parsing request body
+app.use(express.json());
+
+// router to handle all information about fetching user 
+app.use('/account', userRouter);
+app.use('/inventory', invRouter);
+
+app.use((req, res) => res.status(404).send('This is not the page you\'re looking for...'));
+
+app.use((err, req, res, next) => {
+    const defaultErr = {
+        log: 'Express error handler caught unknown middleware error',
+        status: 500,
+        message: { err: 'An error occurred' },
+    };
+    const errorObj = Object.assign({}, defaultErr, err);
+    console.log(errorObj.log);
+    return res.status(errorObj.status).json(errorObj.message);
+});
 
 // do we need to put this at the very bottom?
 app.get("*",(req,res)=>{
@@ -17,6 +39,6 @@ app.get("*",(req,res)=>{
 })
 
 
-app.listen(PORT, () => {    
+app.listen(PORT, () => {
     console.log(`Server listening on port: ${PORT}...`);
 });
