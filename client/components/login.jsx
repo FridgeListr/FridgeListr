@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router'
 
 function Login() {
   // Declare a new state variable, which we'll call "count"
   // const [count, setCount] = useState(0);
+  let navigate = useNavigate();
+
 
   function loginPost() {
     // console.log('loginpost')
@@ -30,7 +33,7 @@ function Login() {
 
   return (
     <div id='signup-box'>
-      <h1>test heading</h1>
+      <h1>test Henry helllo</h1>
       <form id='login-form' onSubmit={(event) => {
         loginPost();
         event.preventDefault();
@@ -39,7 +42,13 @@ function Login() {
         <input required id="login-password" placeholder="Password" type="password" />
         <input type="submit" value="Login" />
       </form>
-      <a href='/signup'>Signup Here!</a>
+      <a href='/signup'>Signup Here!</a> 
+      <br></br>
+      <a href='/home'>Go Home</a>
+      <br></br>
+      <a href='/login'>Go Login</a>
+      hello
+      
     </div>
   );
 }

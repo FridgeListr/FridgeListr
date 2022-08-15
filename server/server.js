@@ -9,6 +9,11 @@ const PORT = process.env.PORT || 3000;
 
 // handle requests for static files for css styling, index.html and bundle.js
 // looks for static files, specifically index.html, style.css, index.js
+app.get('/',(req,res)=>{
+    console.log('help')
+    return res.status(308).redirect('/login')
+})
+
 console.log(path.join(__dirname, "../client"));
 app.use(express.static(path.join(__dirname, "../")));
 app.use(express.static(path.resolve(__dirname, "../bundle")));
@@ -19,6 +24,11 @@ app.use(express.json());
 // router to handle all information about fetching user 
 app.use('/account', userRouter);
 app.use('/inventory', invRouter);
+
+
+app.get("*",(req,res)=>{
+    res.sendFile(path.resolve(__dirname, '../bundle/bundle.html'))
+})
 
 app.use((req, res) => res.status(404).send('This is not the page you\'re looking for...'));
 

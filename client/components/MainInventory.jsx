@@ -96,9 +96,9 @@ const MainInventory = (props) => {
     )
 
     return (
-        <div>
+        <div contentEditable>
             {foodRender}
-            
+            helloasdas
         </div>
     )
 }

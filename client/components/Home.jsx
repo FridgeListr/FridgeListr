@@ -16,7 +16,7 @@ function Home() {
     // we want to perform this get request as soon as the page
     getUserData()
     // document.title = `You clicked ${count} times`;
-  });
+  }, []);
 
   const getUserData = () => {
     const getOptions = {
@@ -42,8 +42,13 @@ function Home() {
 
   return (
     <>
+      <a href='/signup'>Signup Here!</a>
+      <br></br>
+      <a href='/home'>Go Home</a>
+      <br></br>
+      <a href='/login'>Go Login</a>
       <div id='navbar'>
-        <Navbar selectFridge={selectFridge} fridgeArray={fridgeArray}/>
+        <Navbar selectFridge={selectFridge} fridgeArray={fridgeArray} />
       </div>
       <div id='content'>
         <MainInventory defaultFridge={defaultFridge} />
