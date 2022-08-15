@@ -60,10 +60,10 @@ ALTER TABLE public."fridge-join" ADD CONSTRAINT "fridge_fk1" FOREIGN KEY (user_i
 CREATE TABLE public."food-item"(
   _id SERIAL,
   food_name VARCHAR(100) NOT NULL,
-  quantity INT DEFAULT 1,
+  quantity INT NOT NULL DEFAULT 1,
   unit VARCHAR(20),
   date_entered DATE NOT NULL DEFAULT CURRENT_DATE,
-  expiration_date DATE,
+  expiration_date DATE NOT NULL,
   fridge_unique_name VARCHAR(100) NOT NULL,
   PRIMARY KEY (_id)
 )WITH (
