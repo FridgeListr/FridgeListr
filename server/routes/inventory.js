@@ -4,10 +4,10 @@ const router = express.Router();
 const invController = require('../controllers/invController');
 
 // GET: all the inventory inside a given fridge
-// receive: fridge_unique_name
+// receive: req.params.fridge_unique_name
 // return: { ALL rows in table "food-items" with fridge_unique_name }
 router.get('/:fridge_unique_name',
-  invController.getAllFood,
+  invController.getAllItems,
   (req, res) => {
     // this returns an array of objects
     // each object is a food item in the fridge with the following properties
@@ -19,20 +19,22 @@ router.get('/:fridge_unique_name',
 );
 
 // POST: new item with given information into the database at the fridge_unique_name
-// receive: object with food_name, quantity, date_entered, expiration_date, fridge_unique_name
-//      ex: { food_name, quantity, unit, date_entered, expiration_date }
-// return: nothing || updated item
+// receive: req.params.fridge_unique_name
+//          req.body = { food_name, OPTIONAL[quantity, unit, date_entered, expiration_date] }
+// return: newly created item object
 router.post('/:fridge_unique_name',
-invController.createFoodItem,
+invController.createItem,
   (req, res) => {
     res.status(200).json(res.locals.food);
   }
 );
 
 // PATCH: update information of an existing food item inside the fridge_unique_name
-// receive: { row of a given food_id at all the columns }
+// receive: req.params.fridge_unique_name,
+//          req.body = { _id, OPTIONAL[food_name, quantity, unit, date_entered, expiration_date]}
 // return: nothing || {updated item}
 router.patch('/:fridge_unique_name',
+  invController.updateItem,
   (req, res) => {
     res.status(200).json({});
   }
