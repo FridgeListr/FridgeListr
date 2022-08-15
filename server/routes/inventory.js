@@ -7,17 +7,25 @@ const invController = require('../controllers/invController');
 // receive: fridge_unique_name
 // return: { ALL rows in table "food-items" with fridge_unique_name }
 router.get('/:fridge_unique_name',
+  invController.getAllFood,
   (req, res) => {
-    res.status(200).json({});
+    // this returns an array of objects
+    // each object is a food item in the fridge with the following properties
+    // { _id, food_name, quantity, unit, expiration_date, fridge_unique_name }
+    // date_entered and expiration_date are in "DATE" format
+    // example: "2022-08-14T07:00:00.000Z"
+    res.status(200).json(res.locals.food);
   }
 );
 
 // POST: new item with given information into the database at the fridge_unique_name
 // receive: object with food_name, quantity, date_entered, expiration_date, fridge_unique_name
+//      ex: { food_name, quantity, unit, date_entered, expiration_date }
 // return: nothing || updated item
 router.post('/:fridge_unique_name',
+invController.createFoodItem,
   (req, res) => {
-    res.status(200).json({});
+    res.status(200).json(res.locals.food);
   }
 );
 
