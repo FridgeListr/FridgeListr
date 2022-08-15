@@ -9,7 +9,7 @@ invController.getAllItems = (req, res, next) => {
   const fridge_unique_name = req.params.fridge_unique_name;
   if(fridge_unique_name === undefined) throw new Error('fridge_unique_name is a required parameter.')
 
-  const queryString = 'SELECT * FROM "food-item" WHERE fridge_unique_name=$1;';
+  const queryString = 'SELECT * FROM "food-item" WHERE fridge_unique_name=$1 ORDER BY _id;';
   const values = [fridge_unique_name];
   db.query(queryString, values)
     .then(response => {
