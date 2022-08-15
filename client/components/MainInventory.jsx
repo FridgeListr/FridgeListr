@@ -1,71 +1,54 @@
 import React, { useState, useEffect } from 'react';
-import FoodCard from './FoodCard';
+import FoodCard from './FoodCard.jsx';
 import SelectedFood from './SelectedFood';
 
 const MainInventory = (props) => {
-    // the food we receive will be limited to the fridge it is in
-    const [foodArray, setFoodArray] = useState([]);
-
-    const [selectedFood, ] = useState();
+    const [selectedFood, setSelectedFood] = useState(<SelectedFood food={props.foodArray[0]} key={100}/>);
+   
 
     // this is the array that will be rendered
-    const foodRender = [];
-    // const defaultFridge
+    const [foodRender , setFoodRender]= useState([]);
 
-
-    const getFoodArray = () => {
-        const getOptions = {
-            method: 'GET'
-        }
-
-        fetch(`/inventory/?fridge_id=${props.defaultFridge}`, getOptions)
-            .then((data) => data.json())
-            .then((data) => {
-                setFoodArray(data)
-                console.log(data)
-            })
-            .catch((error) => console.log(error));
+const foodFormSubmit = (action) => {
+    if (action === 'POST'){
+        postFoodItem()
+    } else {
+        console.log('patch')
     }
-
-    // we will use this get the food array on page load and whenever anything changes?
-    useEffect(() => {
-        getFoodArray()
-    },[])
-
+}
 
     const postFoodItem = () => {
-        const postBody = {
-            food_name: 1, 
-            quantity: 1, 
-            unit: 1, 
-            date_entered: 1, 
-            expiration_date: 1
-        }
+        console.log('posted!')
+        // const postBody = {
+        //     food_name: 1, 
+        //     quantity: 1, 
+        //     unit: 1, 
+        //     date_entered: 1, 
+        //     expiration_date: 1
+        // }
 
-        const postOptions = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(postBody)
-        }
-
-        fetch(`/inventory`, postOptions)
-            .then((data) => data.json())
-            .then((data) => {
-                // setFoodArray(data)
-            })
-            .catch((error) => console.log(error));
+        // const postOptions = {
+        //     method: foodAction,
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //     },
+        //     body: JSON.stringify(postBody)
+        // }
+        // console.log(postOptions)
+        // fetch(`/inventory`, postOptions)
+        // .then((data) => {
+        //     props.setFoodArray(data)
+        //     console.log(data)
+        // })
+        // .then((data) => data.json())
+        //     .catch((error) => console.log(error));
     }
 
-    const patchFoodItem = (food_id) => {
-
+    const selectFood = (i) => {
+        console.log('buttonclicked', props.foodArray[i])
+        setSelectedFood(<SelectedFood food={props.foodArray[i]} foodFormSubmit={foodFormSubmit} key={100}/>)
     }
 
-    
-    const saveFoodChanges = () => {
-        
-    }
 
     const delFoodItem = (i) => {
         const delOptions = {
@@ -75,7 +58,7 @@ const MainInventory = (props) => {
         fetch(`/inventory`, delOptions)
             // .then((data) => data.json())
             .then((data) => {
-                setFoodArray(data)
+                props.setFoodArray(data)
             })
             .then((data) => {
                 console.log(data)
@@ -84,29 +67,36 @@ const MainInventory = (props) => {
     }
 
     const adjustFood = (i, operation) => {
-        const newFoodArray = [... foodArray]
+        const newFoodArray = [...props.foodArray]
 
         newFoodArray[i].quantity = operation(newFoodArray[i].quantity)
 
-        setFoodArray(newFoodArray)
+        props.setFoodArray(newFoodArray)
     }
 
     // this will update the render component when the food array changes
     useEffect(() => {
-        for (let i = 0; i < foodArray.length; i++) {
-            foodRender.push(<FoodCard key={i + 1000} food={foodArray[i]} delFoodItem={delFoodItem} i={i} />)
+        console.log('useeffect forprops.foodArray')
+        console.log(props.foodArray[0])
+        const tempArr = [];
+        for (let i = 0; i < props.foodArray.length; i++) {
+            tempArr.push(<FoodCard key={i + 1000} food={props.foodArray[i]} delFoodItem={delFoodItem} i={i} selectFood={selectFood} />)
         }
+        setFoodRender(tempArr);
+        // console.log('foodrender', tempArr[0])
     },
-        [foodArray]
+        [props.foodArray]
     )
 
     return (
-        <div>
+        <div id='main-inventory'>
+            Main Inventory!
             {foodRender}
-            {/* <SelectedFood key={100}/> */}
+            {selectedFood}
             <div id='selection-buttons'>
-                <button id='add-food'>Add</button>
+                <button id='add-food' onClick={()=> selectFood(1)}>Add</button>
                 <button id='update-food'>Update</button>
+                temp
             </div>
         </div>
     )

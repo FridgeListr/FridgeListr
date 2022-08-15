@@ -22,12 +22,20 @@
   display: flex;
   margin: 2vh auto;
 
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: center;
 
   width: 90vw;
 
   border: 2px solid green;
+  div {
+    width: 40vw;
+    height: 50vh;
+  }
+  div .food-card {
+    height: auto;
+  }
 }
 
 .login {

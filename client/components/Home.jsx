@@ -11,13 +11,35 @@ function Home() {
   const [username, setUsername] = useState('');
   const [user_id, setUser_id] = useState('');
   const [fridgeArray, setFridgeArray] = useState([]);
-  const [defaultFridge, setDefaultFridge] = useState(0);
+  const [defaultFridge, setDefaultFridge] = useState('olaf');
+
+  const [foodArray, setFoodArray] = useState([]);
   // const [foodArray,]
 
-  useEffect(() => {
-    // we want to perform this get request as soon as the page
-    getUserData()
-    // document.title = `You clicked ${count} times`;
+
+  const getFoodArray = () => {
+    console.log('get food array', defaultFridge)
+    const getOptions = {
+        method: 'GET'
+    }
+    console.log(`/inventory/${defaultFridge}`)
+    fetch(`/inventory/${defaultFridge}`, getOptions)
+    .then((data) => data.json())
+    .then((data) => {
+        // console.log(data)
+        setFoodArray(data)
+    })
+        .catch((error) => {
+            console.log('there is an error')
+            console.log(error)});
+}
+
+
+// we will use this get the food array on page load and whenever anything changes?
+useEffect(() => {
+  // we want to perform this get request as soon as the page
+  getUserData()
+  getFoodArray()
   }, []);
 
   const getUserData = () => {
@@ -47,20 +69,15 @@ function Home() {
       <nav className='navbar'>
         <ButtonAppBar />
       </nav>
-
-      <div className="contents">
         <a href='/signup'>Signup Here!</a>
         <br></br>
         <a href='/home'>Go Home</a>
         <br></br>
         <a href='/login'>Go Login</a>
-        <div id='navbar'>
-          <Navbar selectFridge={selectFridge} fridgeArray={fridgeArray} />
-        </div>
-        <div id='content'>
-          <MainInventory defaultFridge={defaultFridge} key={2} />
-          {/* <Activity /> */}
-        </div>
+
+      <div className="contents">
+          <MainInventory defaultFridge={defaultFridge} key={2} foodArray={foodArray} setFoodArray={setFoodArray} />
+          <Activity />
       </div>
     </>
   );
