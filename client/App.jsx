@@ -16,9 +16,6 @@ function App() {
 
     return (
         <Router>
-            <nav className='navbar'>
-                <ButtonAppBar />
-            </nav>
             <Routes>
                 <Route exact path='/login' element={<Login />} />
                 <Route exact path='/signup' element={<Signup />} />

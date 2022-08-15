@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router'
 
+import Box from '@material-ui/core';
+import Input from '@material-ui/core'
+
 function Login() {
   // Declare a new state variable, which we'll call "count"
   // const [count, setCount] = useState(0);
@@ -32,8 +35,7 @@ function Login() {
 
 
   return (
-    <div id='signup-box'>
-      <h1>test Henry helllo</h1>
+    <div className='login'>
       <form id='login-form' onSubmit={(event) => {
         loginPost();
         event.preventDefault();
@@ -48,7 +50,37 @@ function Login() {
       <br></br>
       <a href='/login'>Go Login</a>
       hello
-      
+
+      {/* <Box border='5px solid text.secondary'>
+          <center>
+            <h2>Sign In!</h2>
+          </center>
+
+          <form>
+            <Input
+              placeholder='Email'
+              type='text'
+              // value={email}
+              // onChange={(e) => setEmail(e.target.value)}
+            >
+            </Input>
+
+            <Input
+              placeholder='Password'
+              type='password'
+              // value={userPassword}
+              // onChange={(e) => setUserPassword(e.target.value)}
+            >
+            </Input>
+
+            <Button
+              type='submit'
+              // onClick={signIn}
+            >
+              Sign In
+            </Button>
+          </form>
+        </Box> */}
     </div>
   );
 }

@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import FoodCard from './FoodCard';
+import SelectedFood from './SelectedFood';
 
 const MainInventory = (props) => {
     // the food we receive will be limited to the fridge it is in
     const [foodArray, setFoodArray] = useState([]);
+
+    const [selectedFood, ] = useState();
 
     // this is the array that will be rendered
     const foodRender = [];
@@ -18,6 +22,7 @@ const MainInventory = (props) => {
             .then((data) => data.json())
             .then((data) => {
                 setFoodArray(data)
+                console.log(data)
             })
             .catch((error) => console.log(error));
     }
@@ -25,7 +30,7 @@ const MainInventory = (props) => {
     // we will use this get the food array on page load and whenever anything changes?
     useEffect(() => {
         getFoodArray()
-    })
+    },[])
 
 
     const postFoodItem = () => {
@@ -96,11 +101,13 @@ const MainInventory = (props) => {
     )
 
     return (
-        <div contentEditable>
+        <div>
             {foodRender}
-            helloasdas
-            {/* <FoodCard /> */}
-
+            {/* <SelectedFood key={100}/> */}
+            <div id='selection-buttons'>
+                <button id='add-food'>Add</button>
+                <button id='update-food'>Update</button>
+            </div>
         </div>
     )
 }

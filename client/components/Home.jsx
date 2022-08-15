@@ -3,6 +3,8 @@ import Navbar from './Navbar.jsx';
 import MainInventory from './MainInventory.jsx';
 import Activity from './Activity.jsx';
 
+import ButtonAppBar from './ButtonAppBar.jsx';
+
 function Home() {
   // Declare a new state variable, which we'll call "count"
   // const [count, setCount] = useState(0);
@@ -42,17 +44,23 @@ function Home() {
 
   return (
     <>
-      <a href='/signup'>Signup Here!</a>
-      <br></br>
-      <a href='/home'>Go Home</a>
-      <br></br>
-      <a href='/login'>Go Login</a>
-      <div id='navbar'>
-        <Navbar selectFridge={selectFridge} fridgeArray={fridgeArray} />
-      </div>
-      <div id='content'>
-        <MainInventory defaultFridge={defaultFridge} />
-        {/* <Activity /> */}
+      <nav className='navbar'>
+        <ButtonAppBar />
+      </nav>
+
+      <div className="contents">
+        <a href='/signup'>Signup Here!</a>
+        <br></br>
+        <a href='/home'>Go Home</a>
+        <br></br>
+        <a href='/login'>Go Login</a>
+        <div id='navbar'>
+          <Navbar selectFridge={selectFridge} fridgeArray={fridgeArray} />
+        </div>
+        <div id='content'>
+          <MainInventory defaultFridge={defaultFridge} key={2} />
+          {/* <Activity /> */}
+        </div>
       </div>
     </>
   );
