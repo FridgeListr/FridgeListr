@@ -4,7 +4,6 @@ import SelectedFood from './SelectedFood';
 
 const MainInventory = (props) => {
 
-
     // this is the array that will be rendered
     const [foodRender, setFoodRender] = useState([]);
 
@@ -90,14 +89,6 @@ const MainInventory = (props) => {
             .catch((error) => console.log(error));
     }
 
-    // const adjustFood = (i, operation) => {
-    //     const newFoodArray = [...props.foodArray]
-
-    //     newFoodArray[i].quantity = operation(newFoodArray[i].quantity)
-
-    //     props.setFoodArray(newFoodArray)
-    // }
-
     // this will update the render component when the food array changes
     useEffect(() => {
         // console.log('useeffect forprops.foodArray')
@@ -116,11 +107,7 @@ const MainInventory = (props) => {
         <div id='main-inventory'>
             Main Inventory!
             {selectedFood}
-            {/* <div id='selection-buttons'> */}
             <button id='clear-food' onClick={() => setSelectedFood(<SelectedFood food={undefined} foodFormSubmit={foodFormSubmit} key={100} />)}>Clear Food</button>
-            {/* <button id='update-food'>Update</button> */}
-
-            {/* </div> */}
             {foodRender}
         </div>
     )
