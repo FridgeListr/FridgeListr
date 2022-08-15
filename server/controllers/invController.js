@@ -104,4 +104,28 @@ invController.updateItem = (req, res, next) => {
     }));
 };
 
+// middleware to delete an item in food-item table
+// input: req.params.food_id
+// output: {deleted item}
+invController.deleteItem = (req, res, next) => {
+  // a delete query requires an food_id
+  console.log(req.params.food_id);
+  if(req.params.food_id === undefined) throw new Error('_id is a required parameter');
+  
+  // query string based on it.
+  let queryString = 'DELETE FROM "food-item" WHERE _id = $1 RETURNING *;';
+  const values = [req.params.food_id];
+  
+  db.query(queryString, values)
+    .then(response => {
+      res.locals.food = response.rows[0]; //response.rows is a single element array
+      console.log(res.locals.food);
+      return next();
+    })
+    .catch(err => next({
+      log: 'invController.deleteItem went wrong',
+      message: { err: 'Error: ' + JSON.stringify(err) }
+    }));
+};
+
 module.exports = invController;

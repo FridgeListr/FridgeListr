@@ -29,7 +29,7 @@ invController.createItem,
   }
 );
 
-// PATCH: update information of an existing food item inside the fridge_unique_name
+// PATCH: update information of an existing item based on food_id
 // receive: req.params.food_id
 //          req.body = {OPTIONAL[food_name, quantity, unit, date_entered, expiration_date]}
 // return: {updated item}
@@ -40,12 +40,13 @@ router.patch('/:food_id',
   }
 );
 
-// DELETE: delete a whole row inside a given fridge_unique_name
-// receive: food_id
-// return: nothing || { deleted item }
-router.delete('/:fridge_unique_name',
+// DELETE: delete a entry in food-item table based on _id;
+// receive: req.params.food_id
+// return: { deleted item }
+router.delete('/:food_id',
+  invController.deleteItem,
   (req, res) => {
-    res.status(200).json({});
+    res.status(200).json(res.locals.food);
   }
 );
 
