@@ -3,15 +3,15 @@
 
 
 * {
-  border: 1px solid black;
+  // border: 1px solid black;
   margin: 0;
   padding: 0;
-  
+
   font-family: 'Roboto', sans-serif;
 }
 
 .navbar {
-  
+
   div {
     display: flex;
     justify-content: space-between;
@@ -29,10 +29,12 @@
   width: 90vw;
 
   border: 2px solid green;
+
   div {
     width: 40vw;
     height: 50vh;
   }
+
   div .food-card {
     height: auto;
   }
@@ -49,22 +51,46 @@
   align-items: center;
   justify-content: center;
 
-  // border: 2px solid green;
+  >div {
+    border: 2px solid lightblue;
+    border-radius: 1rem;
+
+    padding: 10px;
+  }
+}
+
+.signup {
+  display: flex;
+  margin: 2vh auto;
+
+  width: 95vw;
+  height: 95vh;
+
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  >div {
+    border: 2px solid lightblue;
+    border-radius: 1rem;
+    padding: 10px;
+  }
 }
 
 #activityContainer {
   ul {
     list-style: none;
     padding: 4px;
+
     li {
       padding: 4px;
       margin: 4px;
-      
+
     }
+
     li.expiryText {
       color: red;
       border: 1px solid red;
     }
   }
 }
-
