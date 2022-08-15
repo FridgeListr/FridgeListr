@@ -6,18 +6,39 @@ import Activity from './Activity.jsx';
 import ButtonAppBar from './ButtonAppBar.jsx';
 
 function Home() {
-  // Declare a new state variable, which we'll call "count"
-  // const [count, setCount] = useState(0);
   const [username, setUsername] = useState('');
   const [user_id, setUser_id] = useState('');
   const [fridgeArray, setFridgeArray] = useState([]);
-  const [defaultFridge, setDefaultFridge] = useState(0);
-  // const [foodArray,]
+  const [defaultFridge, setDefaultFridge] = useState('olaf');
+  const [selectedFridge, setSelectedFridge] = useState(defaultFridge);
+  const [foodArray, setFoodArray] = useState([]);
 
+
+
+  const getFoodArray = () => {
+    console.log('get food array', selectedFridge)
+    const getOptions = {
+      method: 'GET'
+    }
+    // console.log(`/inventory/${defaultFridge}`)
+    fetch(`/inventory/${selectedFridge}`, getOptions)
+      .then((data) => data.json())
+      .then((data) => {
+        console.log('getfoodadata', data)
+        setFoodArray(data)
+      })
+      .catch((error) => {
+        console.log('there is an error')
+        console.log(error)
+      });
+  }
+
+
+  // we will use this get the food array on page load and whenever anything changes?
   useEffect(() => {
     // we want to perform this get request as soon as the page
     getUserData()
-    // document.title = `You clicked ${count} times`;
+    getFoodArray()
   }, []);
 
   const getUserData = () => {
@@ -47,20 +68,15 @@ function Home() {
       <nav className='navbar'>
         <ButtonAppBar />
       </nav>
+      <a href='/signup'>Signup Here!</a>
+      <br></br>
+      <a href='/home'>Go Home</a>
+      <br></br>
+      <a href='/login'>Go Login</a>
 
       <div className="contents">
-        <a href='/signup'>Signup Here!</a>
-        <br></br>
-        <a href='/home'>Go Home</a>
-        <br></br>
-        <a href='/login'>Go Login</a>
-        <div id='navbar'>
-          <Navbar selectFridge={selectFridge} fridgeArray={fridgeArray} />
-        </div>
-        <div id='content'>
-          <MainInventory defaultFridge={defaultFridge} key={2} />
-          {/* <Activity /> */}
-        </div>
+        <MainInventory defaultFridge={defaultFridge} key={2} foodArray={foodArray} setFoodArray={setFoodArray} getFoodArray={getFoodArray} />
+        <Activity foodArray={foodArray}/>
       </div>
     </>
   );

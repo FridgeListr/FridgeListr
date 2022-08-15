@@ -22,12 +22,22 @@
   display: flex;
   margin: 2vh auto;
 
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: center;
 
   width: 90vw;
 
   border: 2px solid green;
+
+  div {
+    width: 40vw;
+    height: 50vh;
+  }
+
+  div .food-card {
+    height: auto;
+  }
 }
 
 .login {
@@ -64,5 +74,23 @@
     border: 2px solid lightblue;
     border-radius: 1rem;
     padding: 10px;
+  }
+}
+
+#activityContainer {
+  ul {
+    list-style: none;
+    padding: 4px;
+
+    li {
+      padding: 4px;
+      margin: 4px;
+
+    }
+
+    li.expiryText {
+      color: red;
+      border: 1px solid red;
+    }
   }
 }
