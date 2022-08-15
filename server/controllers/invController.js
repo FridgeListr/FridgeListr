@@ -51,12 +51,12 @@ invController.createItem = (req, res, next) => {
   }
   valueString += ')';
   queryString += ') ' + valueString +' RETURNING *;';
-  console.log('queryString is: ', queryString);
+  // console.log('queryString is: ', queryString);
 
   db.query(queryString, values)
     .then(response => {
       res.locals.food = response.rows[0]; //response.rows is a single element array
-      console.log(res.locals.food);
+      // console.log(res.locals.food);
       return next();
     })
     .catch(err => next({
@@ -71,7 +71,7 @@ invController.createItem = (req, res, next) => {
 // output: {updated item}
 invController.updateItem = (req, res, next) => {
   // an update query requires an food_id
-  console.log(req.params.food_id);
+  // console.log(req.params.food_id);
   if(req.params.food_id === undefined) throw new Error('_id is a required parameter');
   
   // determine which properties have been passed through and build an appropriate
@@ -89,13 +89,13 @@ invController.updateItem = (req, res, next) => {
     } 
   }
   queryString += ' WHERE _id = $1 RETURNING *;';
-  console.log('queryString is: ', queryString);
-  console.log('values is: ', values);
+  // console.log('queryString is: ', queryString);
+  // console.log('values is: ', values);
 
   db.query(queryString, values)
     .then(response => {
       res.locals.food = response.rows[0]; //response.rows is a single element array
-      console.log(res.locals.food);
+      // console.log(res.locals.food);
       return next();
     })
     .catch(err => next({
@@ -109,7 +109,7 @@ invController.updateItem = (req, res, next) => {
 // output: {deleted item}
 invController.deleteItem = (req, res, next) => {
   // a delete query requires an food_id
-  console.log(req.params.food_id);
+  // console.log(req.params.food_id);
   if(req.params.food_id === undefined) throw new Error('_id is a required parameter');
   
   // query string based on it.
@@ -119,7 +119,7 @@ invController.deleteItem = (req, res, next) => {
   db.query(queryString, values)
     .then(response => {
       res.locals.food = response.rows[0]; //response.rows is a single element array
-      console.log(res.locals.food);
+      // console.log(res.locals.food);
       return next();
     })
     .catch(err => next({
