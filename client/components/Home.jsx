@@ -77,7 +77,7 @@ useEffect(() => {
 
       <div className="contents">
           <MainInventory defaultFridge={defaultFridge} key={2} foodArray={foodArray} setFoodArray={setFoodArray} />
-          <Activity />
+          <Activity foodArray={foodArray}/>
       </div>
     </>
   );
