@@ -99,6 +99,8 @@ const MainInventory = (props) => {
         <div contentEditable>
             {foodRender}
             helloasdas
+            {/* <FoodCard /> */}
+
         </div>
     )
 }
