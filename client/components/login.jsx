@@ -1,21 +1,31 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router'
+import { useNavigate } from 'react-router-dom';
 
-import Box from '@material-ui/core';
-import Input from '@material-ui/core'
+import Box from '@material-ui/core/Box';
+import { Input } from '@material-ui/core';
+// import Input from '@material-ui/core/Input';
+import Button from '@material-ui/core/Button'
 
 function Login() {
-  // Declare a new state variable, which we'll call "count"
-  // const [count, setCount] = useState(0);
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
   let navigate = useNavigate();
 
-
   function loginPost() {
+
     // console.log('loginpost')
+    // const postBody = {
+    //   username: document.getElementById("login-username").value,
+    //   password: document.getElementById("login-password").value
+    // }
     const postBody = {
-      username: document.getElementById("login-username").value,
-      password: document.getElementById("login-password").value
+      username,
+      password
     }
+
+    // console.log('this is postBody', postBody);
+
     const postOptions = {
       method: 'POST',
       headers: {
@@ -23,65 +33,63 @@ function Login() {
       },
       body: JSON.stringify(postBody)
     }
-    // console.log(postOptions)
+
     fetch('/account/login', postOptions)
       .then((data) => data.json())
       .then((data) => {
-        console.log(test)
+        console.log('this is the data', data);
+        // console.log(data)
         // expect a cookie back and a redirect
+
+        if (data === true) {
+          navigate('/home')
+        }
+        else return alert('Invalid Login');
+
+        // alert("it worked!!!")
+        // window.open("http://localhost:8080/home")
       })
       .catch((error) => console.log(error));
   }
 
-
   return (
     <div className='login'>
-      <form id='login-form' onSubmit={(event) => {
-        loginPost();
-        event.preventDefault();
-      }}>
-        <input required id="login-username" placeholder="Username" type="text" />
-        <input required id="login-password" placeholder="Password" type="password" />
-        <input type="submit" value="Login" />
-      </form>
-      <a href='/signup'>Signup Here!</a> 
-      <br></br>
-      <a href='/home'>Go Home</a>
-      <br></br>
-      <a href='/login'>Go Login</a>
-      hello
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          width: '300px',
+        }}
+      >
+        <center>
+          <h1>
+            Login
+          </h1>
+        </center>
+        <Input
+          placeholder='Username'
+          type='text'
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        >
+        </Input>
+        <Input
+          placeholder='Password'
+          type='password'
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        >
+        </Input>
 
-      {/* <Box border='5px solid text.secondary'>
-          <center>
-            <h2>Sign In!</h2>
-          </center>
-
-          <form>
-            <Input
-              placeholder='Email'
-              type='text'
-              // value={email}
-              // onChange={(e) => setEmail(e.target.value)}
-            >
-            </Input>
-
-            <Input
-              placeholder='Password'
-              type='password'
-              // value={userPassword}
-              // onChange={(e) => setUserPassword(e.target.value)}
-            >
-            </Input>
-
-            <Button
-              type='submit'
-              // onClick={signIn}
-            >
-              Sign In
-            </Button>
-          </form>
-        </Box> */}
-    </div>
+        <Button
+          type='submit'
+          onClick={loginPost}
+        >
+          Sign In
+        </Button>
+        {/* </form> */}
+      </Box>
+    </div >
   );
 }
 

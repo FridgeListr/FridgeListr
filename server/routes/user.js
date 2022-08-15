@@ -27,7 +27,7 @@ router.post('/login', userController.loginUser,
 // receive: cookie
 // return: {user_id, fridge_arrray, default_fridge}
 // ! Check in with Lenny/Carlos
-router.get('/login',
+router.get('/login/:username', userController.getUserInfo,
   (req, res) => {
     res.status(200).json({});
   }
@@ -47,7 +47,7 @@ router.post('/signup',
 // POST: /fridge/new
 // receive: nickname
 // return: fridge_unique_name
-router.post('/fridge/new', userController.createFridge,
+router.post('/fridge/new', userController.createFridge, userController.setDefaultFridge,
   (req, res) => {
     res.status(200).json(res.locals.fridge);
   }

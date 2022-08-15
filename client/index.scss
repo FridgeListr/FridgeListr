@@ -3,15 +3,15 @@
 
 
 * {
-  border: 1px solid black;
+  // border: 1px solid black;
   margin: 0;
   padding: 0;
-  
+
   font-family: 'Roboto', sans-serif;
 }
 
 .navbar {
-  
+
   div {
     display: flex;
     justify-content: space-between;
@@ -41,6 +41,28 @@
   align-items: center;
   justify-content: center;
 
-  // border: 2px solid green;
+  >div {
+    border: 2px solid lightblue;
+    border-radius: 1rem;
+
+    padding: 10px;
+  }
 }
 
+.signup {
+  display: flex;
+  margin: 2vh auto;
+
+  width: 95vw;
+  height: 95vh;
+
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  >div {
+    border: 2px solid lightblue;
+    border-radius: 1rem;
+    padding: 10px;
+  }
+}
