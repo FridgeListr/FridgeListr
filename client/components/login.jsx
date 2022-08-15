@@ -1,38 +1,54 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router'
 
 function Login() {
   // Declare a new state variable, which we'll call "count"
-  const [count, setCount] = useState(0);
+  // const [count, setCount] = useState(0);
+  let navigate = useNavigate();
 
-  function loginPost(){
+
+  function loginPost() {
+    // console.log('loginpost')
     const postBody = {
-
+      username: document.getElementById("login-username").value,
+      password: document.getElementById("login-password").value
     }
     const postOptions = {
       method: 'POST',
       headers: {
-          'Content-Type': 'application/json',
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(postBody)
     }
+    // console.log(postOptions)
     fetch('/account/login', postOptions)
-    .then((data) => data.json())
-    .then((data) => {
-
-
-    })
-    .catch((error) => console.log(error));
+      .then((data) => data.json())
+      .then((data) => {
+        console.log(test)
+        // expect a cookie back and a redirect
+      })
+      .catch((error) => console.log(error));
   }
 
 
   return (
     <div id='signup-box'>
-      <form id='login-form'>
+      <h1>test Henry helllo</h1>
+      <form id='login-form' onSubmit={(event) => {
+        loginPost();
+        event.preventDefault();
+      }}>
         <input required id="login-username" placeholder="Username" type="text" />
         <input required id="login-password" placeholder="Password" type="password" />
-        <input type="Login!" value="Login" />
+        <input type="submit" value="Login" />
       </form>
-        <a href='/signup'>Signup Here!</a>;
+      <a href='/signup'>Signup Here!</a> 
+      <br></br>
+      <a href='/home'>Go Home</a>
+      <br></br>
+      <a href='/login'>Go Login</a>
+      hello
+      
     </div>
   );
 }
