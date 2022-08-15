@@ -11,10 +11,6 @@ import { useNavigate } from 'react-router-dom'
 
 export default function ButtonAppBar() {
   let navigate = useNavigate();
-
-
-
-
   
   return (
     <Box sx={{ flexGrow: 1 }}>
