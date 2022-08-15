@@ -76,7 +76,7 @@ function Home() {
 
       <div className="contents">
         <MainInventory defaultFridge={defaultFridge} key={2} foodArray={foodArray} setFoodArray={setFoodArray} getFoodArray={getFoodArray} />
-        <Activity />
+        <Activity foodArray={foodArray}/>
       </div>
     </>
   );

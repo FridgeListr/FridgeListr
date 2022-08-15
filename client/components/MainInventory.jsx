@@ -92,7 +92,7 @@ const MainInventory = (props) => {
     // this will update the render component when the food array changes
     useEffect(() => {
         // console.log('useeffect forprops.foodArray')
-        console.log('props.foodArray[0]', props.foodArray[0])
+        // console.log(props.foodArray[0])
         const tempArr = [];
         for (let i = 0; i < props.foodArray.length; i++) {
             tempArr.push(<FoodCard key={i + 1000} food={props.foodArray[i]} delFoodItem={delFoodItem} i={i} selectFood={selectFood} />)
