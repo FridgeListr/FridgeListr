@@ -7,11 +7,11 @@ const invController = {};
 // output: { ALL rows in table "food-items" with fridge_unique_name }
 invController.getAllItems = (req, res, next) => {
   const fridge_unique_name = req.params.fridge_unique_name;
+  if(fridge_unique_name === undefined) throw new Error('fridge_unique_name is a required parameter.')
 
-  const queryString = 
-    `SELECT * FROM "food-item"
-     WHERE fridge_unique_name='${fridge_unique_name};'`;
-  db.query(queryString)
+  const queryString = 'SELECT * FROM "food-item" WHERE fridge_unique_name=$1;';
+  const values = [fridge_unique_name];
+  db.query(queryString, values)
     .then(response => {
       res.locals.food = response.rows;
       return next();
