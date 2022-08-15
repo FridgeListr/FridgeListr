@@ -17,7 +17,7 @@ invController.getAllItems = (req, res, next) => {
       return next();
     })
     .catch(err => next({
-      log: 'invController.getAllFood went wrong',
+      log: 'invController.getAllItems went wrong',
       message: { err: 'Error: ' + JSON.stringify(err) }
     }));
 };
@@ -35,7 +35,6 @@ invController.createItem = (req, res, next) => {
   // determine which properties have been passed through and build an appropriate
   // query string based on it.
   const item = Object.assign(req.body, { fridge_unique_name });
-  console.log('item is: ', item);
   const keys = Object.keys(item);
   let queryString = 'INSERT INTO "food-item" (';
   let valueString = 'VALUES (';
@@ -43,7 +42,7 @@ invController.createItem = (req, res, next) => {
   for(let i = 0; i < keys.length; i++){
     queryString += keys[i];
     valueString += `\$${i + 1}`;
-    values.push(req.body[keys[i]]);
+    values.push(item[keys[i]]);
     // add a comma after the word if this is not the last value
     if(i < keys.length - 1){
       queryString += ', ';
@@ -61,41 +60,37 @@ invController.createItem = (req, res, next) => {
       return next();
     })
     .catch(err => next({
-      log: 'invController.createFoodItem went wrong',
+      log: 'invController.createItem went wrong',
       message: { err: 'Error: ' + JSON.stringify(err) }
     }));
 };
 
-// middleware to fetch update an existing item's data in a fridge
-// PATCH: update information of an existing food item inside the fridge_unique_name
-// receive: req.params.fridge_unique_name,
-//          req.body = { _id, OPTIONAL[food_name, quantity, unit, date_entered, expiration_date]}
-// return: nothing || {updated item}
+// middleware to update an existing item's data in a fridge
+// input: req.params.food_id,
+//          req.body = { OPTIONAL[food_name, quantity, unit, date_entered, expiration_date]}
+// output: {updated item}
 invController.updateItem = (req, res, next) => {
-  const fridge_unique_name = req.params.fridge_unique_name;
-
-  // a new food-item entry MUST have a food_name
-  if(req.body.food_name === undefined) throw new Error('food_name is a required parameter');
+  // an update query requires an food_id
+  console.log(req.params.food_id);
+  if(req.params.food_id === undefined) throw new Error('_id is a required parameter');
   
   // determine which properties have been passed through and build an appropriate
   // query string based on it.
-  const keys = Object.keys(req.body);
-  let queryString = 'INSERT INTO "food-item" (';
-  let valueString = 'VALUES (';
+  const item = Object.assign({ _id: req.params.food_id }, req.body);
+  const keys = Object.keys(item);
+  let queryString = 'UPDATE "food-item" SET ';
   const values = [];
   for(let i = 0; i < keys.length; i++){
-    queryString += keys[i];
-    valueString += `\$${i + 1}`;
-    values.push(req.body[keys[i]]);
+    queryString += keys[i] +` = \$${i + 1}`;
+    values.push(item[keys[i]]);
     // add a comma after the word if this is not the last value
     if(i < keys.length - 1){
       queryString += ', ';
-      valueString += ', ';
     } 
   }
-  valueString += ')';
-  queryString += ') ' + valueString +' RETURNING *;';
+  queryString += ' WHERE _id = $1 RETURNING *;';
   console.log('queryString is: ', queryString);
+  console.log('values is: ', values);
 
   db.query(queryString, values)
     .then(response => {
@@ -104,7 +99,7 @@ invController.updateItem = (req, res, next) => {
       return next();
     })
     .catch(err => next({
-      log: 'invController.createFoodItem went wrong',
+      log: 'invController.updateItem went wrong',
       message: { err: 'Error: ' + JSON.stringify(err) }
     }));
 };

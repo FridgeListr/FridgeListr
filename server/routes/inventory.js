@@ -30,13 +30,13 @@ invController.createItem,
 );
 
 // PATCH: update information of an existing food item inside the fridge_unique_name
-// receive: req.params.fridge_unique_name,
-//          req.body = { _id, OPTIONAL[food_name, quantity, unit, date_entered, expiration_date]}
-// return: nothing || {updated item}
-router.patch('/:fridge_unique_name',
+// receive: req.params.food_id
+//          req.body = {OPTIONAL[food_name, quantity, unit, date_entered, expiration_date]}
+// return: {updated item}
+router.patch('/:food_id',
   invController.updateItem,
   (req, res) => {
-    res.status(200).json({});
+    res.status(200).json(res.locals.food);
   }
 );
 
