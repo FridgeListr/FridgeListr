@@ -12,7 +12,7 @@ function Home() {
   const [user_id, setUser_id] = useState('');
   const [fridgeArray, setFridgeArray] = useState([]);
   const [defaultFridge, setDefaultFridge] = useState('olaf');
-
+  const [selectedFridge, setSelectedFridge] = useState(defaultFridge);
   const [foodArray, setFoodArray] = useState([]);
   // const [foodArray,]
 
@@ -76,7 +76,7 @@ useEffect(() => {
         <a href='/login'>Go Login</a>
 
       <div className="contents">
-          <MainInventory defaultFridge={defaultFridge} key={2} foodArray={foodArray} setFoodArray={setFoodArray} />
+          <MainInventory defaultFridge={defaultFridge} key={2} foodArray={foodArray} setFoodArray={setFoodArray} getFoodArray={getFoodArray} />
           <Activity />
       </div>
     </>

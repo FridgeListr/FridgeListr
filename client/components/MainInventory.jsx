@@ -3,50 +3,77 @@ import FoodCard from './FoodCard.jsx';
 import SelectedFood from './SelectedFood';
 
 const MainInventory = (props) => {
-    const [selectedFood, setSelectedFood] = useState(<SelectedFood food={props.foodArray[0]} key={100}/>);
-   
-
+    
+    
     // this is the array that will be rendered
-    const [foodRender , setFoodRender]= useState([]);
-
-const foodFormSubmit = (action) => {
-    if (action === 'POST'){
-        postFoodItem()
-    } else {
-        console.log('patch')
+    const [foodRender, setFoodRender] = useState([]);
+    
+    const foodFormSubmit = (action, food_id) => {
+        if (action === 'POST') {
+            postFoodItem()
+        } else {
+            patchFoodItem(food_id)
+        }
     }
-}
+
+    const [selectedFood, setSelectedFood] = useState(<SelectedFood food={props.foodArray[0]} foodFormSubmit={foodFormSubmit} key={100} />);
 
     const postFoodItem = () => {
         console.log('posted!')
-        // const postBody = {
-        //     food_name: 1, 
-        //     quantity: 1, 
-        //     unit: 1, 
-        //     date_entered: 1, 
-        //     expiration_date: 1
-        // }
+        const postBody = {
+            food_name: document.getElementById('input-food_name').value,
+            quantity: document.getElementById('input-quantity').value, 
+            unit: document.getElementById('input-unit').value, 
+            date_entered: document.getElementById('input-date-entered').value, 
+            expiration_date: document.getElementById('input-date-expired').value
+        }
 
-        // const postOptions = {
-        //     method: foodAction,
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //     },
-        //     body: JSON.stringify(postBody)
-        // }
-        // console.log(postOptions)
-        // fetch(`/inventory`, postOptions)
-        // .then((data) => {
-        //     props.setFoodArray(data)
-        //     console.log(data)
-        // })
-        // .then((data) => data.json())
-        //     .catch((error) => console.log(error));
+        const postOptions = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(postBody)
+        }
+        console.log(postOptions)
+        fetch(`/inventory/olaf`, postOptions)
+        .then((data) => {
+            // props.setFoodArray(data)
+            // console.log(data)
+            // props.getFoodArray()
+        })
+            .catch((error) => console.log(error));
+    }
+    const patchFoodItem = (food_id) => {
+        console.log('patched!', food_id)
+        const postBody = {
+            food_name: document.getElementById('input-food_name').value,
+            quantity: document.getElementById('input-quantity').value, 
+            unit: document.getElementById('input-unit').value, 
+            date_entered: document.getElementById('input-date-entered').value, 
+            expiration_date: document.getElementById('input-date-expired').value
+        }
+
+        const postOptions = {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(postBody)
+        }
+        console.log(postOptions)
+        fetch(`/inventory/${food_id}`, postOptions)
+        .then((data) => {
+            // props.setFoodArray(data)
+            // console.log(data)
+            // props.getFoodArray()
+        })
+            .catch((error) => console.log(error));
     }
 
     const selectFood = (i) => {
         console.log('buttonclicked', props.foodArray[i])
-        setSelectedFood(<SelectedFood food={props.foodArray[i]} foodFormSubmit={foodFormSubmit} key={100}/>)
+        setSelectedFood(<SelectedFood food={props.foodArray[i]} foodFormSubmit={foodFormSubmit} key={100} />)
     }
 
 
@@ -91,13 +118,13 @@ const foodFormSubmit = (action) => {
     return (
         <div id='main-inventory'>
             Main Inventory!
-            {foodRender}
             {selectedFood}
-            <div id='selection-buttons'>
-                <button id='add-food' onClick={()=> selectFood(1)}>Add</button>
-                <button id='update-food'>Update</button>
-                temp
-            </div>
+            {/* <div id='selection-buttons'> */}
+                <button id='clear-food' onClick={() => setSelectedFood(<SelectedFood food={undefined} foodFormSubmit={foodFormSubmit} key={100} />)}>Clear Food</button>
+                {/* <button id='update-food'>Update</button> */}
+                
+            {/* </div> */}
+            {foodRender}
         </div>
     )
 }
