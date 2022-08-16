@@ -19,17 +19,40 @@ router.post('/login', userController.loginUser,
   (req, res) => {
     let output;
     res.locals.user ? output = true : output = false;
-    res.status(200).json(output);
+    const results = {
+      output: output,
+      user_info: res.locals.user,
+    };
+    res.status(200).json(results);
   }
 );
 
-// GET: account/login
-// receive: cookie
-// return: {user_id, fridge_arrray, default_fridge}
-// ! Check in with Lenny/Carlos
-router.get('/login/:username', userController.getUserInfo,
+// router.get('/login', 
+//   userController.loginUser,
+//   (req, res) => {
+//     // let output;
+//     res.locals.user ? output = true : output = false;
+//   }
+// );
+
+// router.get('/login/:username', userController.getUserInfo,
+//   (req, res) => {
+//     res.status(200).json(res.locals.userInfo);
+//   }
+// );
+
+// GET: account/login/:username
+// receive: req.params.username
+// return: {fridge_arrray, default_fridge}
+router.get('/login/:user_id', 
+  userController.getFridgeArray,
+  userController.getDefaultFridge,
   (req, res) => {
-    res.status(200).json({});
+    const results = {
+      fridge_array: res.locals.fridgeArray,
+      default_fridge: res.locals.default_fridge
+    }
+    res.status(200).json(results);
   }
 );
 

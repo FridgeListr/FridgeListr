@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import Navbar from './Navbar.jsx';
+// import Navbar from './Navbar.jsx';
 import MainInventory from './MainInventory.jsx';
 import Activity from './Activity.jsx';
 
 import ButtonAppBar from './ButtonAppBar.jsx';
 
-function Home() {
-  const [username, setUsername] = useState('');
-  const [user_id, setUser_id] = useState('');
+function Home({ user_id }) {
+  // const [username, setUsername] = useState('');
+  // const [user_id, setUser_id] = useState('');
+  // const username = props.username
+  // const setUserName = props.user
   const [fridgeArray, setFridgeArray] = useState([]);
   const [defaultFridge, setDefaultFridge] = useState('olaf');
   const [selectedFridge, setSelectedFridge] = useState(defaultFridge);
   const [foodArray, setFoodArray] = useState([]);
-
-
 
   const getFoodArray = () => {
     console.log('get food array', selectedFridge)
@@ -48,13 +48,11 @@ function Home() {
       credentials: 'include'
     }
 
-    fetch('/account/login', getOptions)
+    fetch(`/account/login/:${user_id}`, getOptions)
       .then((data) => data.json())
       .then((data) => {
-        setUsername(data.username);
-        setUser_id(data.user_id);
-        setFridgeArray(data.fridgeArray);
-        setDefaultFridge(data.defaultFridge);
+        setFridgeArray(data.fridge_array);
+        setDefaultFridge(data.default_fridge);
       })
       .catch((error) => console.log(error));
   }
@@ -66,13 +64,13 @@ function Home() {
   return (
     <>
       <nav className='navbar'>
-        <ButtonAppBar />
+        <ButtonAppBar setSelectedFridge={selectFridge} />
       </nav>
-      <a href='/signup'>Signup Here!</a>
+      {/* <a href='/signup'>Signup Here!</a>
       <br></br>
       <a href='/home'>Go Home</a>
       <br></br>
-      <a href='/login'>Go Login</a>
+      <a href='/login'>Go Login</a> */}
 
       <div className="contents">
         <MainInventory defaultFridge={defaultFridge} key={2} foodArray={foodArray} setFoodArray={setFoodArray} getFoodArray={getFoodArray} />

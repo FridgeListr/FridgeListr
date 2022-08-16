@@ -6,8 +6,7 @@ import { Input } from '@material-ui/core';
 // import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button'
 
-function Login() {
-  const [username, setUsername] = useState('');
+function Login({username, setUsername, setUser_id}) {
   const [password, setPassword] = useState('');
 
   let navigate = useNavigate();
@@ -41,7 +40,8 @@ function Login() {
         // console.log(data)
         // expect a cookie back and a redirect
 
-        if (data === true) {
+        if (data) {
+          setUser_id(data.user_info._id);
           navigate('/home')
         }
         else return alert('Invalid Login');
@@ -63,7 +63,7 @@ function Login() {
       >
         <center>
           <h1>
-            Login
+            Login to RFridge
           </h1>
         </center>
         <Input
@@ -85,10 +85,18 @@ function Login() {
           type='submit'
           onClick={loginPost}
         >
-          Sign In
+          Login
         </Button>
-        {/* </form> */}
+
+        <Button
+          type='submit'
+          onClick={() => navigate('/signup')}
+        >
+          Sign Up
+        </Button>
       </Box>
+
+      {/* <img src='https://static.wikia.nocookie.net/octonauts/images/0/00/Yeti_crab.png/revision/latest/scale-to-width-down/1000?cb=20190204201106' /> */}
     </div >
   );
 }

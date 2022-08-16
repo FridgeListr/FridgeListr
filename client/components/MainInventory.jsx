@@ -105,9 +105,10 @@ const MainInventory = (props) => {
 
     return (
         <div id='main-inventory'>
-            Main Inventory!
-            {selectedFood}
-            <button id='clear-food' onClick={() => setSelectedFood(<SelectedFood food={undefined} foodFormSubmit={foodFormSubmit} key={100} />)}>Clear Food</button>
+            <div id='selected-item'>
+                {selectedFood}
+                <button id='clear-food' onClick={() => setSelectedFood(<SelectedFood food={undefined} foodFormSubmit={foodFormSubmit} key={100} />)}>Clear Food</button>
+            </div>
             {foodRender}
         </div>
     )
