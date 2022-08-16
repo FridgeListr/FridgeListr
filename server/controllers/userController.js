@@ -132,12 +132,55 @@ userController.loginUser = async (req, res, next) => {
     .catch(err => console.log(err));
 }
 
-// ! Work here 
-userController.getUserInfo = (req, res, next) => {
-  const username = req.params.username;
+// userController.getUserInfo = (req, res, next) => {
+//   const username = req.params.username;
 
+//   const getUserInfoQuery =
+//   `SELECT  FROM \"user-account\" WHERE username=$1`;
+//   const values = [username];
 
-}
+  
+// }
+
+// GET: account/login/:username
+// receive: req.params.username
+// return: default_fridge
+userController.getDefaultFridge = (req, res, next) => {
+  const user_id = req.params.user_id;
+  const queryString = 
+  'SELECT default_fridge_name from "user-account" WHERE _id=$1;';
+  const values = [user_id];
+
+  db.query(queryString, values)
+    .then(response => {
+      if(response.rows) res.locals.default_fridge = response.rows[0].default_fridge_name;
+      return next();
+    })
+    .catch(err => next({
+      log: 'userController.getDefaultFridge went wrong',
+      message: { err: 'Error: ' + JSON.stringify(err) }
+    }));
+};
+
+// GET: account/login/:username
+// receive: req.params.username
+// return: fridge_array
+userController.getFridgeArray = (req, res, next) => {
+  const user_id = req.params.user_id;
+  const queryString = 
+  'SELECT * from "fridge-join" WHERE user_id=$1;';
+  const values = [user_id];
+
+  db.query(queryString, values)
+    .then(response => {
+      if(response.rows) res.locals.fridgeArray = response.rows;
+      return next();
+    })
+    .catch(err => next({
+      log: 'userController.getFridgeArray went wrong',
+      message: { err: 'Error: ' + JSON.stringify(err) }
+    }));
+};
 
 userController.createFridge = (req, res, next) => {
   // console.log(req.body);

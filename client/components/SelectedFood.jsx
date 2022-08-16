@@ -38,12 +38,12 @@ const SelectedFood = (props) => {
                 props.foodFormSubmit(foodAction, _id)
             }}>
                 Food: <input id='input-food_name' type='text' placeholder='Food Name' defaultValue={food_name}></input><br></br>
-                Quantity: <input id='input-quantity' type='text' placeholder='Enter Quantity' defaultValue={quantity}></input>
+                Quantity: <input id='input-quantity' type='text' placeholder='#' defaultValue={quantity}></input>
                 Units: <input id='input-unit' type='text' placeholder='Units' defaultValue={unit}></input><br></br>
                 Date Entered: <input id='input-date-entered' type='date' placeholder='Date' defaultValue={date_entered}></input><br></br>
                 Expiration Date: <input id='input-date-expired' type='date' placeholder='Date' defaultValue={expiration_date}></input><br></br>
                 <input id='input-add' type='submit' value='Add new item' onClick={() => setFoodAction('POST')}></input>
-                <input id='input-update' type='submit' value='Update selected item' onClick={() => setFoodAction('PATCH')}></input>
+                <input id='input-add' type='submit' value='Update selected item' onClick={() => setFoodAction('PATCH')}></input>
             </form>
         </>
     )

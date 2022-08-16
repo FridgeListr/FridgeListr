@@ -6,8 +6,7 @@ import { Input } from '@material-ui/core';
 // import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button'
 
-function Signup() {
-  const [username, setUsername] = useState('');
+function Signup({username, setUsername}) {
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
 

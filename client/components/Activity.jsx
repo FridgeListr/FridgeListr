@@ -47,7 +47,7 @@ const Activity = (props) => {
       if(seconds - today < EXP_TIME){
         const expiration_text = `${food.food_name} is expiring in ${days} days!`;
         tempTable.push(
-          <li className='exipiryText'>{expiration_text}</li>
+          <li className='expiryText'>{expiration_text}</li>
         )
       }
       // console.log('seconds till expiration: ', date.getTime());
@@ -57,9 +57,11 @@ const Activity = (props) => {
 
     return (
         <div id="activityContainer">
-            this is what the activity container looks like!
+            <h1>Activity Log</h1>
             <ul>
+              <h2>Expiring Soon</h2>
               {expirationTable}
+              <h2>Recent Activity</h2>
               {table}
             </ul>
         </div>
