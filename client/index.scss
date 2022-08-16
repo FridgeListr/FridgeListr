@@ -1,0 +1,234 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100;200;400;500&display=swap');
+
+//#3f50b5
+
+/*
+  palette: {
+    primary: {
+      light: '#757ce8',
+      main: '#3f50b5',
+      dark: '#002884',
+      contrastText: '#fff',
+    },
+    secondary: {
+      light: '#ff7961',
+      main: '#f44336',
+      dark: '#ba000d',
+      contrastText: '#000',
+    },
+  },
+*/
+
+
+$primary-main: #3f50b5;
+$primary-light: #757ce8;
+$primary-contrastText: #fff;
+
+$dark-grey: #e0e0e0;
+$light-grey: #f5f5f5;
+
+$secondary-main: #f44336;
+$secondary-light: #ff7961;
+
+* {
+  // border: 1px solid black;
+  margin: 0;
+  padding: 0;
+
+  font-family: 'Roboto', sans-serif;
+}
+
+.navbar {
+
+  div {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.contents {
+  display: flex;
+  margin: 2vh auto;
+
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  width: 90vw;
+
+  // border: 2px solid green;
+
+  div {
+    width: 40vw;
+    height: 50vh;
+  }
+
+  div .food-card {
+    height: auto;
+  }
+}
+
+.login {
+  display: flex;
+  margin: 2vh auto;
+
+  width: 95vw;
+  height: 95vh;
+
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgb(188, 232, 250);
+  font-family: 'Roboto Mono', monospace;
+
+  background-image: url('https://static.wikia.nocookie.net/octonauts/images/0/00/Yeti_crab.png');
+  // background-repeat: no-repeat;
+
+  // https://octonauts.fandom.com/wiki/Yeti_Crab
+  // https://static.wikia.nocookie.net/octonauts/images/0/00/Yeti_crab.png/revision/latest?cb=20190204201106
+// https://static.wikia.nocookie.net/octonauts/images/0/00/Yeti_crab.png
+  >div {
+    border: 2px solid rgb(60, 111, 128);
+    border-radius: 1rem;
+    font-family: 'Roboto Mono';
+    background: rgb(146, 215, 247);
+    padding: 10px;
+  }
+
+}
+
+.signup {
+  display: flex;
+  margin: 2vh auto;
+
+  width: 95vw;
+  height: 95vh;
+
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgb(188, 232, 250);
+  font-family: 'Roboto Mono', monospace;
+
+  >div {
+    border: 2px solid rgb(60, 111, 128);
+    border-radius: 1rem;
+    padding: 10px;
+    font-family: 'Roboto Mono';
+    background: rgb(146, 215, 247);
+  }
+}
+
+#activityContainer {
+  text-align: center;
+  h2 {
+    margin: 20px;
+  }
+  
+  ul {
+    box-shadow: 5px 5px 5px 0px #ADB2B5;
+    list-style: none;
+    padding: 40px;
+    padding-top: 4px;
+    border: 2px solid rgb(60, 111, 128);
+    // border-radius: 2rem;
+
+    li.expiryText {
+      color: black;
+      border: 1px solid $secondary-main;
+      background-color: $secondary-main;
+      box-shadow: 5px 5px 5px 0px #ADB2B5;
+    }
+    li {
+      padding: 4px;
+      margin: 4px;
+      color: black;
+      border: 1px solid lightgray;
+      background-color: whitesmoke;
+      box-shadow: 5px 5px 5px 0px #ADB2B5;
+    }
+  }
+}
+
+#main-inventory {
+
+  .food-card {
+    background-color: $light-grey;
+    box-shadow: 5px 5px 5px 0px #ADB2B5;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
+    margin: 30px;
+    margin-left: 0px;
+
+    h1 {
+      // background-color: $primary-light;
+      flex-grow: 1;
+    }
+
+    button {
+      background: rgba(76, 175, 80, 0);
+      color: red;
+      border: 0px;
+      align-self: flex-end;
+      padding: 3px;
+    }
+  }
+}
+
+#selected-item {
+  height: auto;
+  background-color: $light-grey;
+  box-shadow: 5px 5px 5px 0px #ADB2B5;
+  margin: 30px;
+  margin-left: 0px;
+  display: flex;
+  flex-direction: column;
+
+  button{
+    font-weight: 10000;
+    color: $primary-contrastText;
+    font-size: larger;
+    background-color: $primary-main;
+    border: 0px;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 10px 20px;
+  }
+
+  h1 {
+    padding: 10px;
+    margin-right: 0px;
+    background-color: $primary-main;
+    color: $primary-contrastText;
+    flex-grow: 1;
+  }
+
+  #input-add {
+    font-size: larger;
+    color: $primary-contrastText;
+    background-color: $primary-main;
+    border: 0px;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 10px 20px;
+  }
+  #input-quantity {
+    width: 4em;
+  }
+
+  input{
+    margin-bottom: 10px;
+  }
+
+  form {
+    padding: 20px;
+  }
+
+  *{
+    margin: 3px;
+    padding: 3px;
+  }
+}
