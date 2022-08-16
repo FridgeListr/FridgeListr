@@ -63,7 +63,7 @@ function Login({username, setUsername, setUser_id}) {
       >
         <center>
           <h1>
-            Login
+            Login to RFridge
           </h1>
         </center>
         <Input
@@ -95,6 +95,8 @@ function Login({username, setUsername, setUser_id}) {
           Sign Up
         </Button>
       </Box>
+
+      {/* <img src='https://static.wikia.nocookie.net/octonauts/images/0/00/Yeti_crab.png/revision/latest/scale-to-width-down/1000?cb=20190204201106' /> */}
     </div >
   );
 }

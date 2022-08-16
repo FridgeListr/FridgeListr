@@ -3,7 +3,7 @@ import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
-export default function BasicMenu({setSelectedFridge}) {
+export default function BasicMenu({selectFridge}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -34,9 +34,10 @@ export default function BasicMenu({setSelectedFridge}) {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem onClick={() => setSelectedFridge('olaf')}>olaf</MenuItem>
-        <MenuItem onClick={() => setSelectedFridge('carrot')}>carrot</MenuItem>
-        <MenuItem onClick={() => setSelectedFridge('friend')}>friend</MenuItem>
+        <MenuItem onClick={() => selectFridge('olaf')}>olaf</MenuItem>
+        <MenuItem onClick={() => selectFridge('carrot')}>carrot</MenuItem>
+        <MenuItem onClick={() => selectFridge('friend')}>friend</MenuItem>
+        <MenuItem onClick={() => alert('hello')}>hello</MenuItem>
       </Menu>
     </div>
   );

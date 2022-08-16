@@ -64,7 +64,7 @@ function Home({ user_id }) {
   return (
     <>
       <nav className='navbar'>
-        <ButtonAppBar setSelectedFridge={setSelectedFridge} />
+        <ButtonAppBar setSelectedFridge={selectFridge} />
       </nav>
       {/* <a href='/signup'>Signup Here!</a>
       <br></br>

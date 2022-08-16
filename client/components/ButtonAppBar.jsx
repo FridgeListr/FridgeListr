@@ -11,7 +11,7 @@ import MyFridges from './MyFridges'
 
 import { useNavigate } from 'react-router-dom'
 
-export default function ButtonAppBar({ setSelectedFridge }) {
+export default function ButtonAppBar({ selectFridge }) {
   let navigate = useNavigate();
 
   // function createFridge() {
@@ -56,7 +56,7 @@ export default function ButtonAppBar({ setSelectedFridge }) {
           <Button onClick={() => navigate('/home')} color="inherit">My Fridge</Button>
           {/* <Button onClick={() => navigate('/login')} color="inherit">Sign Out</Button> */}
           {/* <Button color='white' onClick={() => alert('My Fridges')}>Fridges</Button> */}
-          <MyFridges setSelectedFridge={setSelectedFridge} />
+          <MyFridges selectFridge={selectFridge} />
           {/* <Button onClick={() => alert('Create Fridge')}>Create Fridge</Button> */}
           <Button onClick={() => navigate('/login')} color="inherit">Log Out</Button>
         </Toolbar>

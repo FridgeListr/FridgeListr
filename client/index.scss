@@ -82,7 +82,12 @@ $secondary-light: #ff7961;
   background: rgb(188, 232, 250);
   font-family: 'Roboto Mono', monospace;
 
+  background-image: url('https://static.wikia.nocookie.net/octonauts/images/0/00/Yeti_crab.png');
+  // background-repeat: no-repeat;
 
+  // https://octonauts.fandom.com/wiki/Yeti_Crab
+  // https://static.wikia.nocookie.net/octonauts/images/0/00/Yeti_crab.png/revision/latest?cb=20190204201106
+// https://static.wikia.nocookie.net/octonauts/images/0/00/Yeti_crab.png
   >div {
     border: 2px solid rgb(60, 111, 128);
     border-radius: 1rem;
